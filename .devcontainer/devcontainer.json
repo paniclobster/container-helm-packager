@@ -1,0 +1,44 @@
+{
+  "name": "Panic Lobster Helm Packager",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "extensions": [
+    "christian-kohler.path-intellisense",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "pflannery.vscode-versionlens",
+    "redhat.vscode-xml",
+    "redhat.vscode-yaml",
+    "tyriar.sort-lines",
+    "visualstudioexptteam.vscodeintellicode",
+    "xyz.local-history"
+  ],
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.kube,target=/usr/local/share/kube-localhost,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.minikube,target=/usr/local/share/minikube-localhost,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind",
+    "source=paniclobster-kubernetes-helm-packager-vscode,target=/vscode/.vscode-server/extensions,type=volume",
+    "source=paniclobster-kubernetes-helm-packager-vscode-insiders,target=/vscode/.vscode-server-insiders/extensions,type=volume"
+  ],
+  "remoteEnv": {
+    "CONTAINER_WORKSPACE_FOLDER": "/paniclobster/kubernetes/helm-packager",
+    "SKAFFOLD_CLEANUP": "false",
+    "SKAFFOLD_NO_PRUNE": "false",
+    "SYNC_LOCALHOST_KUBECONFIG": "true"
+  },
+  "remoteUser": "vscode",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "vs-kubernetes.helm-path.linux": "helm",
+    "vs-kubernetes.knownKubeconfigs": ["~/.kube/config"],
+    "vs-kubernetes.kubeconfig": "~/.kube/config",
+    "vs-kubernetes.minikube-path.linux": "minikube"
+  },
+  "workspaceFolder": "/paniclobster/kubernetes/helm-packager",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/paniclobster/kubernetes/helm-packager,type=bind,consistency=cached"
+}
