@@ -1,5 +1,5 @@
 # Base image
-FROM alpine:3.18.0
+FROM alpine:3.18.2
 
 # Exit immediately if a command exits with a non-zero status
 RUN set -e
